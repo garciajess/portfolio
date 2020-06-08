@@ -26,3 +26,20 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+function addRandomQuote() {
+  /* TV Show Full House quotes */
+  const quotes =
+      ['You got it, dude. - Michelle Tanner', 
+      'Cut. It. Out! - Uncle Joey', 
+      'Have mercy! - Uncle Jesse', 
+      'Oh, mylanta! - DJ Tanner', 
+      "It's always open! - DJ Tanner"];
+
+  // Pick a random quote.
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+  // Add it to the page.
+  const quoteContainer = document.getElementById('quote-container');
+  quoteContainer.innerText = quote;
+}
