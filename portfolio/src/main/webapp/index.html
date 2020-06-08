@@ -8,15 +8,105 @@
   </head>
   <body>
     <h1>Jessica's Portfolio</h1>
+      <!-- Navigation bar !-->
+      <ul class="nav-bar">
+        <li><a href="#">HOME</a></li>
+        <li><a href="#aboutMe-container">ABOUT ME</a></li>
+        <li><a href="#projects-container">PROJECTS</a></li>
+        <li><a href="#abroad-container">ABROAD</a></li>
+        <li><a href="#contact-container">CONTACT</a></li>
+      </ul>
+
     <div id="content">
-      <p>This is my portfolio.</p>
+
+      <div id="aboutMe-container">
+        <h2>ABOUT ME</h2>
+        <img class="bioImage" src="/images/jessPorto.jpg" alt="Jessica visiting University of Freiburg"/>
+        <p class="bioDescription">
+          Hello there! I am a rising junior studying Computer Science 
+          and Business at Oregon State University. Outside of the classroom, I enjoy
+          being part of TALI, a group of undergraduate students interested in teaching
+          K-12 students about STEM and Computer Science. Learning about 
+          Computer Science early on allows students to develop strong problem-solving 
+          skills which can be applied to their education and beyond. In the future, I hope to
+          continue engaging students in technology at a young age. In my free time, 
+          I enjoy hiking, exploring Oregon, and planning new adventures.
+        </p>
+      </div>
+
+      <div id="projects-container">
+        <h2>PROJECTS</h2>
+        <h3 class="projectTitle">
+          RIEMANN SUMS (PYTHON)
+        </h3>
+        <p class="projectDescription">
+          Built a program to calculate summation and itegration using
+          trapezoidal and rectangular methods focused on validating user
+          input and using various test cases.
+        </p>
+        <h3 class="projectTitle">
+          JEOPARDY GAME (C) 
+        </h3>
+        <p class="projectDescription">
+          Created a game that allowed the user to play against the computer,
+          demonstrated the use of 2D arrays and parsing command line input using
+          problem-solving steps.
+        </p>
+        <h3 class="projectTitle">
+          BUSINESS TRAVEL REIMBURSEMENT (C++) 
+        </h3>
+        <p class="projectDescription">
+          Developed a user-friendly interface to calculate total possible
+          reimbursement for a trip, dependig on employee's total expenses and
+          company guidelines.
+        </p>
+        </div>
+
+        <div id="abroad-container">
+          <h2>ABROAD</h2>
+          <p class="abroadDescription">
+            After high school, I received a scholarship to participate in a
+            year-long program in Germany where I had the opportunity to live
+            with a host-family, participate in hands-on internships, and learn
+            German. My experiences in Germany increased my interest in travel
+            and language learning, which motivated me to study abroad during college.
+            Last summer, I studied abroad at Yonsei University in Seoul, South Korea.
+            Thanks to the Benjamin A. Gilman International and Critical Language 
+            Scholarships, I was able to take courses related to my major and study
+            Korean. My most memorable experiences included participating in Taekwondo
+            after school, making life-long friendships, and learning to navigate the
+            public transportation system in a new country. Thanks to these experiences,
+            I have gained a lifetime of memories and a unique global perspective.
+          </p> 
+          <img class="abroadImage" src="/images/yonseiUniversity.jpg" alt="At Yonsei University"/>
+            <p class="caption">
+              On-campus at At Yonsei University
+            </p>
+          <img class="abroadImage" src="/images/embassyinSeoul.jpg" alt="Visiting U.S. Embassy in Seoul"/>
+            <p class="caption">
+              Visiting the U.S. Embassy in Seoul as a Benjamin A. Gilman Scholarship recipient
+            </p>
+          <img class="abroadImage" src="/images/cookingEvent.jpg" alt="Participating in cooking event"/>
+            <p class="caption">
+              Participating in a Seodaemun Food and Culture tour. Making Tteokbokki and Gimbap, delicious 
+              Korean food loved by locals!
+            </p>
+        </div>
+
+        <div id="contact-container">
+          <h2>CONTACT</h2>
+          <p class="contactDescription">
+            <a href="https://www.linkedin.com/in/jessica-j-g/">Visit my Linkedin page</a>
+          </p> 
+        </div>
+
       <p>Click here to get a random message:</p>
       <button onclick="addRandomGreeting()">Hello</button>
       <div id="greeting-container"></div>
-        <img class="bioImage" src="/images/jess.jpg" alt="Jessica visiting University of Freiburg"/>
-        <p class="bioDescription">
-          Hello there! I am a rising junior at Oregon State University.
-        </p>
+      <p>Click here to get a random quote from the TV Show Full House:</p>
+      <button onclick="addRandomQuote()">Quote</button>
+      <div id="quote-container"></div>
+      
     </div>
   </body>
 </html>
