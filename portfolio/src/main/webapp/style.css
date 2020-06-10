@@ -69,6 +69,7 @@ img {
   border-radius: 10px;
   width: 50%;
   border: solid #66b3ff;   
+  padding: 3px;
 }
 
 .bioImage {
