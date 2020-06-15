@@ -108,7 +108,16 @@
       <div id="quote-container"></div>
       <button onclick="getQuoteJSON()">Inspire me</button>
       <ul id="inspiration-container"></ul>
-      
+
+      <div id="comments">
+        <form action="/data" method="POST">
+          <p>Comment:</p>
+          <textarea name="text-input">Enter your comment...</textarea>
+          <br/><br/>
+          <input type="submit" />
+          </form>
+      </div>
+
     </div>
   </body>
 </html>

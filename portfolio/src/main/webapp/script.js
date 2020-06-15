@@ -43,22 +43,3 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
-/* Fetches quotes from the servers and adds them to the DOM. */
-function getQuoteJSON() {
-  fetch('/data').then(response => response.json()).then((quotes) => {
-    console.log("Fetching quote from server");
-    const quoteListElement = document.getElementById('inspiration-container');
-    quoteListElement.innerHTML = '';
-    quoteListElement.appendChild(createListElement('Quote: ' + quotes[0]));
-    quoteListElement.appendChild(createListElement('Quote: ' + quotes[1]));
-    quoteListElement.appendChild(createListElement('Quote: ' + quotes[2]));
-
-  });
-}
-
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
-}

@@ -27,26 +27,36 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private ArrayList<String> comments = new ArrayList<>();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    ArrayList<String> quotes = new ArrayList<>();
-    quotes.add("They told me computers could only do arithmetic. - Grace Hopper");
-    quotes.add("A ship in port is safe, but that is not what ships are built for. - Grace Hopper");
-    quotes.add("Those who can imagine anything, can create the impossible. - Alan Turing");
-
-    String json = convertToJsonUsingGson(quotes);
-
-    // Send the JSON as the response
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-    
+    // Send the HTML as the response
+    response.setContentType("text/html;");
+    response.getWriter().println(comments); 
   }
 
-  /* Converts a quote instance into a JSON string using the Gson library */
-  private String convertToJsonUsingGson(ArrayList<String> quotes) {
-    Gson gson = new Gson();
-    String json = gson.toJson(quotes);
-    return json;
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = getParameter(request, "text-input", "");
+    comments.add(text);
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println(comments);
+    response.sendRedirect("/index.html");
+  }
+
+  /*
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
