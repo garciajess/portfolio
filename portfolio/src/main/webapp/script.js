@@ -43,3 +43,29 @@ function addRandomQuote() {
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
+
+/**
+ * Fetches the hello from the server and adds it to the DOM.
+ */
+function getHello() {
+  console.log('Fetching a hello.');
+  const responsePromise = fetch('/data');
+  responsePromise.then(handleResponse);
+}
+
+/**
+ * Handles response by converting it to text and passing the result to
+ * addHelloToDom().
+ */
+function handleResponse(response) {
+  console.log('Handling the response.');
+  const textPromise = response.text();
+  textPromise.then(addHelloToDom);
+}
+
+/** Adds the hello to the DOM. */
+function addHelloToDom(hello) {
+  console.log('Adding hello to dom: ' + hello);
+  const helloContainer = document.getElementById('hello-container');
+  helloContainer.innerText = hello;
+}
