@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
+/* Adds a random greeting to the page. */
 function addRandomGreeting() {
   const greetings =
       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
@@ -27,6 +25,7 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
+/* Adds a random TV show quote to the page. */
 function addRandomQuote() {
   /* TV Show Full House quotes */
   const quotes =
@@ -44,28 +43,22 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
-/**
- * Fetches the hello from the server and adds it to the DOM.
- */
-function getHello() {
-  console.log('Fetching a hello.');
-  const responsePromise = fetch('/data');
-  responsePromise.then(handleResponse);
+/* Fetches quotes from the servers and adds them to the DOM. */
+function getQuoteJSON() {
+  fetch('/data').then(response => response.json()).then((quotes) => {
+    console.log("Fetching quote from server");
+    const quoteListElement = document.getElementById('inspiration-container');
+    quoteListElement.innerHTML = '';
+    quoteListElement.appendChild(createListElement('Quote: ' + quotes[0]));
+    quoteListElement.appendChild(createListElement('Quote: ' + quotes[1]));
+    quoteListElement.appendChild(createListElement('Quote: ' + quotes[2]));
+
+  });
 }
 
-/**
- * Handles response by converting it to text and passing the result to
- * addHelloToDom().
- */
-function handleResponse(response) {
-  console.log('Handling the response.');
-  const textPromise = response.text();
-  textPromise.then(addHelloToDom);
-}
-
-/** Adds the hello to the DOM. */
-function addHelloToDom(hello) {
-  console.log('Adding hello to dom: ' + hello);
-  const helloContainer = document.getElementById('hello-container');
-  helloContainer.innerText = hello;
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }

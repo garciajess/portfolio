@@ -15,6 +15,9 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +29,24 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Jessica!</h1>");
+
+    ArrayList<String> quotes = new ArrayList<>();
+    quotes.add("They told me computers could only do arithmetic. - Grace Hopper");
+    quotes.add("A ship in port is safe, but that is not what ships are built for. - Grace Hopper");
+    quotes.add("Those who can imagine anything, can create the impossible. - Alan Turing");
+
+    String json = convertToJsonUsingGson(quotes);
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+    
+  }
+
+  /* Converts a quote instance into a JSON string using the Gson library */
+  private String convertToJsonUsingGson(ArrayList<String> quotes) {
+    Gson gson = new Gson();
+    String json = gson.toJson(quotes);
+    return json;
   }
 }
