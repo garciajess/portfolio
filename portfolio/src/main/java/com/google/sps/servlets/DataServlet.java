@@ -14,6 +14,13 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -23,28 +30,56 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content. TODO: modify this file to handle comments data 
+@WebServlet("/page-views") is an annotation 
+that tells our server which URL this servlet 
+maps to. When a client requests the /page-views URL, this servlet is triggered.
+*/
+
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private ArrayList<String> comments = new ArrayList<>();
 
+  // runs every time a client requests its URL.
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Send the HTML as the response
-    response.setContentType("text/html;");
-    response.getWriter().println(comments); 
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    /* Key & Value */
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String message = (String) entity.getProperty("message");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Comment comment = new Comment(id, message, timestamp);
+      comments.add(comment);
+    }
+
+    Gson gson = new Gson();
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(comments));
   }
 
+ /* Use doPost for sensitive information */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
     String text = getParameter(request, "text-input", "");
-    comments.add(text);
+    long timestamp = System.currentTimeMillis();
 
-    // Respond with the result.
-    response.setContentType("text/html;");
-    response.getWriter().println(comments);
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
     response.sendRedirect("/index.html");
   }
 
@@ -59,4 +94,5 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
+
 }

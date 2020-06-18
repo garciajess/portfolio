@@ -43,3 +43,41 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
+function loadComments() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    const commentListElement = document.getElementById('comment-list');
+    comments.forEach((comment) => {
+      commentListElement.appendChild(createCommentElement(comment));
+    })
+  });
+}
+
+/* Creates an element that represents a comment */
+function createCommentElement(comment) {
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
+
+  const messageElement = document.createElement('span');
+  messageElement.innerText = comment.text;
+
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteComment(comment);
+
+    // Remove the comment from the DOM.
+    commentElement.remove();
+  });
+
+  commentElement.appendChild(messageElement);
+  commentElement.appendChild(deleteButtonElement);
+  
+  return commentElement;
+}
+
+/* Tells the server to delete the comment */
+function deleteComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  fetch('/delete-comment', {method: 'POST', body: params});
+}
